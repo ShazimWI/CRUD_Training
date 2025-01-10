@@ -223,6 +223,12 @@ namespace CRUD_Training.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            if (string.IsNullOrWhiteSpace(HttpContext.Session.GetString("Username")))
+            {
+                return RedirectToAction("Login", "Index");
+            }
+
+            //Load product data
             return View();
         }
 

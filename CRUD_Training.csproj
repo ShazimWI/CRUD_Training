@@ -8,25 +8,28 @@
 
   <ItemGroup>
     <Compile Remove="Images\**" />
+    <Compile Remove="Views\LoginController1\**" />
     <Compile Remove="Views\Product\**" />
     <Compile Remove="wwwroot\NewFolder1\**" />
     <Compile Remove="wwwroot\NewFolder\**" />
     <Content Remove="Images\**" />
+    <Content Remove="Views\LoginController1\**" />
     <Content Remove="Views\Product\**" />
     <Content Remove="wwwroot\NewFolder1\**" />
     <Content Remove="wwwroot\NewFolder\**" />
     <EmbeddedResource Remove="Images\**" />
+    <EmbeddedResource Remove="Views\LoginController1\**" />
     <EmbeddedResource Remove="Views\Product\**" />
     <EmbeddedResource Remove="wwwroot\NewFolder1\**" />
     <EmbeddedResource Remove="wwwroot\NewFolder\**" />
     <None Remove="Images\**" />
+    <None Remove="Views\LoginController1\**" />
     <None Remove="Views\Product\**" />
     <None Remove="wwwroot\NewFolder1\**" />
     <None Remove="wwwroot\NewFolder\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Controllers\LoginController.cs" />
     <Compile Remove="Controllers\ProductController.cs" />
     <Compile Remove="Views\ViewCustomers.cs" />
   </ItemGroup>
@@ -36,7 +39,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Product\" />
     <Folder Include="wwwroot\Images\" />
   </ItemGroup>
 
