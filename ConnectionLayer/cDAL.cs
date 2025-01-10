@@ -115,44 +115,68 @@ namespace CRUD_Training.ConnectionLayer
             return resultList;
         }
 
-        //THIS IS THE WRONG INTEGRATION I DID SO YOU HAVE TO CHANGE IT TO DYNAMIC AND GENERIC
-        //public List<ProductModel> GetData()
-        //{
-        //    SqlDataAdapter sda;
-        //    DataTable dt;
+        public int Update(string tableName, Dictionary<string, object> columnValues, string condition)
+        {
+            if (string.IsNullOrWhiteSpace(tableName))
+            {
+                throw new ArgumentException("Table name cannot be null.", nameof(tableName));
+            }
 
-        //    using (SqlConnection connection = new SqlConnection(_connectionString))
-        //    {
-        //        using (SqlCommand command = new SqlCommand("sp_getProducts", connection))
-        //        {
-        //            // For the Stored Procedure
-        //            command.CommandType = CommandType.StoredProcedure;
+            if (columnValues == null || columnValues.Count == 0)
+            {
+                throw new ArgumentException("Column Values cannot be null.", nameof(columnValues));
+            }
 
-        //            //For Getting the data from the query 
-        //            sda = new SqlDataAdapter(command);
+            if (string.IsNullOrWhiteSpace(condition))
+            {
+                throw new ArgumentException("Condition cannot be null.", nameof(condition));
+            }
 
-        //            //Object for the dataTable
-        //            dt = new DataTable();
+            //To Generate Column Names and Parameterized values
+            //string columnNames = string.Join(", ", columnValues.Keys);
+            //string paramNames = string.Join(", ", columnValues.Keys.Select(key => "@" + key));
+            string setClause = string.Join(", ",columnValues.Keys.Select(key => $"{key} = @{key}"));
 
-        //            //Filling the data from query to data table
-        //            sda.Fill(dt);
+            string query = $"UPDATE {tableName} SET {setClause} WHERE {condition} ";
 
-        //            List<ProductModel> list = new List<ProductModel>();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    //add params to the query (here kvp is KeyValueParameters)
+                    foreach (var kvp in columnValues)
+                    {
+                        command.Parameters.AddWithValue("@" + kvp.Key, kvp.Value ?? DBNull.Value);
+                    }
 
-        //            foreach(DataRow dr in dt.Rows)
-        //            {
-        //                list.Add(new ProductModel
-        //                {
-        //                    ProductID = Convert.ToInt32(dr["ProductId"]),
-        //                    ProductName = dr["ProductName"].ToString(),
-        //                    ProductPrice = Convert.ToInt32(dr["ProductPrice"]),
-        //                });
-        //            }
+                    connection.Open();
+                    return command.ExecuteNonQuery(); //This will return number of rows affected
+                }
+            }
+        }
 
-        //            return list;
-        //        }
-        //    }
+        public int Delete(string tableName, string condition)
+        {
+            if (string.IsNullOrWhiteSpace(tableName))
+            {
+                throw new ArgumentException("Table name cannot be null.", nameof(tableName));
+            }
 
-        //}
+            if (string.IsNullOrWhiteSpace(condition))
+            {
+                throw new ArgumentException("Condition cannot be null", nameof(condition));
+            }
+
+            string query = $"DELETE FROM {tableName} WHERE {condition}";
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query,connection))
+                {
+                    connection.Open();
+                    return command.ExecuteNonQuery(); // Returns number of rows deleted
+                }
+            }
+        }
     }
 }
