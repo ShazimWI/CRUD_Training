@@ -13,8 +13,13 @@ namespace CRUD_Training.Controllers
             _dal = dal;
         }
 
+        public IActionResult Login()
+        {
+            return View();
+        }
+
         [HttpPost]
-        public IActionResult LoginUser(UserModel user)
+        public IActionResult Login( UserModel user)
         {
             if (string.IsNullOrEmpty(user.UserName) || string.IsNullOrWhiteSpace(user.Password))
             {
@@ -23,7 +28,7 @@ namespace CRUD_Training.Controllers
             }
 
             //Verify Credentials
-            var existingUser = _dal.GetData<UserModel>("Users").FirstOrDefault(u => u.UserName == user.UserName && u.isActive);
+            var existingUser = _dal.GetData<UserModel>("Users").FirstOrDefault(u => u.UserName == user.UserName );
 
             if (existingUser == null || existingUser.Password != user.Password)
             {
@@ -33,20 +38,18 @@ namespace CRUD_Training.Controllers
 
             //Save User Session
             HttpContext.Session.SetString("Username", existingUser.UserName);
+            Console.WriteLine($"Checking username value: {existingUser.UserName}");
 
-            return RedirectToAction("Index", "Products");
+            return RedirectToAction("Index", "Home");
 
         }
 
-        [HttpGet]
-        public IActionResult Index()
-        {
-            return View();
-        }
+        
 
         public IActionResult Logout()
         {
-            return RedirectToAction("Login");
+            HttpContext.Session.Clear(); //clearing the session values
+            return RedirectToAction("Login", "Login");
         }
     }
 }

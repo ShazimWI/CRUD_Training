@@ -1,4 +1,5 @@
 ﻿using System.Data;
+using System.Data.SqlTypes;
 using CRUD_Training.ConnectionLayer;
 using CRUD_Training.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,7 @@ namespace CRUD_Training.Controllers
         //    var columnValues = new Dictionary<string, object>
         //    {
         //        {"ProductName", product.ProductName },
-        //        {"ProductPrice", product.ProductPrice }
+        //        {"Price", product.Price }
         //    };
         //    //Executing query
         //    int rowsCount = _dal.Insert("Products", columnValues);
@@ -70,9 +71,16 @@ namespace CRUD_Training.Controllers
             var columnValues = new Dictionary<string, object>
             {
                 {"ProductName", product.ProductName },
-                {"ProductPrice", product.ProductPrice },
-                {"ProductImg", "/Images/" + fileName }
+                {"Price", product.Price },
+                {"Descriptions", product.Descriptions },
+                {"Quantity", product.Quantity},
+                {"ProductImg", "/Images/" + fileName },
+                {"AddedBy","shazim" },
+                {"AddedOn", DateTime.Now},
+                {"isActive", product.isActive }
             };
+
+            Console.WriteLine($"AddedOn: {DateTime.Now}");
 
             //--------Executing query-------------
             int rowsCount = _dal.Insert("Products", columnValues);
@@ -153,8 +161,13 @@ namespace CRUD_Training.Controllers
             var columnValues = new Dictionary<string, object>
             {
                 {"ProductName", product.ProductName },
-                {"ProductPrice", product.ProductPrice },
-                {"ProductImg", fileName }
+                {"Price", product.Price },
+                {"Descriptions", product.Descriptions },
+                {"Quantity", product.Quantity},
+                {"ProductImg", fileName },
+                {"UpdatedBy","shazim" },
+                {"UpdatedOn", DateTime.Now},
+                {"isActive", product.isActive }
             };
 
             string condition = $"ProductID = {product.ProductID}";
@@ -225,7 +238,7 @@ namespace CRUD_Training.Controllers
         {
             if (string.IsNullOrWhiteSpace(HttpContext.Session.GetString("Username")))
             {
-                return RedirectToAction("Login", "Index");
+                return RedirectToAction("Login", "Login");
             }
 
             //Load product data
