@@ -100,7 +100,7 @@
                 "serverSide": false,
                 "processing": true,
                 "searchable": true,
-                "order": [[0, 'asc']],
+                "order": [[0, 'desc']],
                 "language": {
                     "emptyTable": "No record found.",
                     "processing":
@@ -136,10 +136,26 @@
                         "autoWidth": true,
                         "searchable": true
                     },
+                    //{
+                    //    "data": "productImg",
+                    //    "render": function (data) {
+                    //        return <img src="${data}" alt="Product Image" style="width: 100px; height: auto;" />;
+                    //    }
+                    //},
                     {
                         "data": "productImg",
                         "render": function (data) {
-                            return `<img src="${data}" alt="Product Image" style="width: 100px; height: auto;" />`;
+                            return `
+                                <span 
+                                    class="paperclip-icon" 
+                                    style="cursor: pointer;"
+                                    data-bs-toggle="popover"
+                                    data-bs-trigger="hover focus"
+                                    data-bs-content="<img src='${data}' alt='Product Image' style='max-width: 200px; height: auto;' />"
+                                    data-bs-html="true">
+                                    <i class="fa fa-paperclip" style="font-size: 24px;"></i>
+                                </span>
+                            `;
                         }
                     },
                     {
@@ -171,6 +187,10 @@
             });
     };
 
+    // Initialize popovers after DataTable is drawn
+    $('#productsTable').on('draw.dt', function () {
+        $('[data-bs-toggle="popover"]').popover();
+    });
 
     //------------- UPDATE PRODUCT USING AJAX (CLIENT SIDE REQUEST)-------------
     $(document).on("click", ".btn-edit", function () {

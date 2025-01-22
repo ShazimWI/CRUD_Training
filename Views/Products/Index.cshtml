@@ -6,53 +6,62 @@
 
 <!--ADD PRODUCT FORM-->
 <div class="row justify-content-start">
-    <div class="col-md-6">
+    <div class="col-md-12">
         @* <div class="card"> *@
         @* <h5 class="card-header text-center">CRUD APPLICATION</h5> *@
         <div class="card-body">
             <h2 class="card-title text-start mb-2">Add Products</h2>
             <form id="productForm" enctype="multipart/form-data" class="form-horizontal">
                 <div class="row">
-                    <!-- Product Name -->
-                    <div class="input-group has-validation" id="productNameDiv">
-                        <span class="input-group-text" for="ProductName" id="inputGroupPrepend3">Product Name: </span>
-                        <input class="form-control" type="text" id="ProductName" name="ProductName" aria-describedby="inputGroupPrepend3 validationProductName" required />
-                        <div id="validationProductName" class="invalid-feedback">
-                            Please enter product name.
+                    <div class="row">
+                        <div class="col">
+                            <!-- Product Name -->
+                            <div class="input-group has-validation" id="productNameDiv">
+                                <span class="input-group-text" for="ProductName" id="inputGroupPrepend3">Product Name: </span>
+                                <input class="form-control" type="text" id="ProductName" name="ProductName" aria-describedby="inputGroupPrepend3 validationProductName" required />
+                                <div id="validationProductName" class="invalid-feedback">
+                                    Please enter product name.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <!-- Product Price -->
+                            <div class="input-group" id="productPriceDiv">
+                                <span class="input-group-text" for="ProductPrice">Product Price: </span>
+                                <input class="form-control" type="number" id="ProductPrice" name="ProductPrice" required />
+                            </div>
                         </div>
                     </div>
-                    <br />
-
-                    <!-- Product Description -->
-                    <div class="input-group mt-3" id="productDescDiv">
-                        <span class="input-group-text" for="Description">Description: </span>
-                        <textarea class="form-control" type="text" id="Description" name="Description" required></textarea>
-                    </div>
-                    <br />
-
-                    <!-- Product Price -->
-                    <div class="input-group mt-3" id="productPriceDiv">
-                        <span class="input-group-text" for="ProductPrice">Product Price: </span>
-                        <input class="form-control" type="number" id="ProductPrice" name="ProductPrice" required />
-                    </div>
-                    <br />
-
-                    <!-- Product Quantity -->
-                    <div class="input-group mt-3" id="productQuantityDiv">
-                        <span class="input-group-text" for="Quantity">Quantity </span>
-                        <input class="form-control" type="number" id="Quantity" name="Quantity" required />
-                    </div>
-                    <br />
-
-                    <!-- Product Image -->
-                    <div class="input-group mt-3 mb-3">
-                        <label class="input-group-text" for="formFile">Product Image: </label>
-                        <input class="form-control" type="file" id="ProductImg" name="ProductImgFile" accept=".png, .jpg, .jpeg" required />
+                    
+                    <div class="row mt-3">
+                        <!-- Product Description -->
+                        <div class="input-group" id="productDescDiv">
+                            <span class="input-group-text" for="Description">Description: </span>
+                            <textarea class="form-control" type="text" id="Description" name="Description" rows="1" required></textarea>
+                        </div>
                     </div>
 
-                    <br />
+                    
+
+                    <div class="row mt-3">
+                        <div class="col">
+                            <!-- Product Quantity -->
+                            <div class="input-group" id="productQuantityDiv">
+                                <span class="input-group-text" for="Quantity">Quantity </span>
+                                <input class="form-control" type="number" id="Quantity" name="Quantity" required />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <!-- Product Image -->
+                            <div class="input-group">
+                                <label class="input-group-text" for="formFile">Product Image: </label>
+                                <input class="form-control" type="file" id="ProductImg" name="ProductImgFile" accept=".png, .jpg, .jpeg" required />
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Add Button -->
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between mt-3">
                         <div class="col-sm-offset-4 col-sm-8">
                             <button id="submitButton" type="button" class="btn btn-primary">Add Product</button>
                         </div>

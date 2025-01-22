@@ -232,6 +232,26 @@ namespace CRUD_Training.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult GetProductDetails(int id)
+        {
+            //Fetch the product details based on ID
+            var product = _dal.GetData<ProductModel>("Products").FirstOrDefault(p => p.ProductID == id);
+
+            if(product == null)
+            {
+                return Json(new { success = false, message = "Product details not found!." });
+            }
+
+            return Json(new
+            {
+                success = true,
+                productID = product.ProductID,
+                productName = product.ProductName,
+                availableQuantity = product.Quantity,
+                price = product.Price
+            });
+        }
 
         [HttpGet]
         public IActionResult Index()

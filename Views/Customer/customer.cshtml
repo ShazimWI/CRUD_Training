@@ -2,66 +2,76 @@
     ViewData["Title"] = "Customer";
 }
 
-<h1>@ViewData["Title"]</h1>
+<h1>Add new @ViewData["Title"]</h1>
 
 <!--ADD Customer FORM-->
 <div class="row justify-content-start">
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="card-body">
             <form id="productForm" enctype="multipart/form-data" class="form-horizontal">
                 <div class="row">
-                    <!-- First Name -->
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" for="FirstName">First Name: </span>
-                        <input class="form-control" type="text" id="FirstName" name="FirstName" required />
+                    <div class="row">
+                        <div class="col">
+                            <!-- First Name -->
+                            <div class="input-group" id="cusFNameDiv">
+                                <span class="input-group-text" for="FirstName">First Name: </span>
+                                <input class="form-control" type="text" id="FirstName" name="FirstName" required />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <!-- Last Name -->
+                            <div class="input-group" id="cusLNameDiv">
+                                <span class="input-group-text" for="LastName">Last Name: </span>
+                                <input class="form-control" type="text" id="LastName" name="LastName" required />
+                            </div>
+                        </div>
                     </div>
-                    <br />
-                    
-                    <!-- Last Name -->
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" for="LastName">Last Name: </span>
-                        <input class="form-control" type="text" id="LastName" name="LastName" required />
-                    </div>
-                    <br />
 
-                    <!-- Email -->
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" for="Email">Email: </span>
-                        <input class="form-control" type="email" id="Email" name="Email" required/>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <!-- Email -->
+                            <div class="input-group" id="cusEmailDiv">
+                                <span class="input-group-text" for="Email">Email: </span>
+                                <input class="form-control" type="email" id="Email" name="Email" required />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <!-- Phone Number-->
+                            <div class="input-group">
+                                <span class="input-group-text" for="Phone">Phone No: </span>
+                                <input class="form-control" type="tel" id="Phone" name="Phone" pattern="[0-9]{3}-[0-9]{8}" required />
+                            </div>
+                        </div>
                     </div>
-                    <br />
 
-                    <!-- Phone Number-->
-                    <div class="input-group">
-                        <span class="input-group-text" for="Phone">Phone No: </span>
-                        <input class="form-control" type="tel" id="Phone" name="Phone" pattern="[0-9]{3}-[0-9]{8}" required/>
+                    <div class="row mt-3">
+                        <!-- Address -->
+                        <div class="input-group">
+                            <span class="input-group-text" for="Address">Address: </span>
+                            <input class="form-control" type="text" id="Address" name="Address" required />
+                        </div>
                     </div>
-                    <div class="form-text">Format: xxx-xxxxxxxx</div>
-                    <br />
 
-                    <!-- Address -->
-                    <div class="input-group mt-3 mb-3">
-                        <span class="input-group-text" for="Address">Address: </span>
-                        <textarea class="form-control" type="text" id="Address" name="Address" required></textarea>
-                    </div>
-                    <br />
 
-                    <!-- City -->
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" for="City">City: </span>
-                        <input class="form-control" type="text" id="City" name="City" required />
+                    <div class="row mt-3">
+                        <div class="col">
+                            <!-- City -->
+                            <div class="input-group">
+                                <span class="input-group-text" for="City">City: </span>
+                                <input class="form-control" type="text" id="City" name="City" required />
+                            </div>
+                        </div>
+                        <div class="col">
+                            <!-- Country -->
+                            <div class="input-group">
+                                <span class="input-group-text" for="Country">Country: </span>
+                                <input class="form-control" type="text" id="Country" name="Country" required />
+                            </div>
+                        </div>
                     </div>
-                    <br />
-
-                    <!-- Country -->
-                    <div class="input-group mb-3">
-                        <span class="input-group-text" for="Country">Country: </span>
-                        <input class="form-control" type="text" id="Country" name="Country" required />
-                    </div>
-                    <br />
 
                     <!-- Add Button -->
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex justify-content-between mt-3">
                         <div class="col-sm-offset-4 col-sm-8">
                             <button id="customerSubmitButton" type="button" class="btn btn-primary">Add Customer</button>
                         </div>
@@ -144,3 +154,4 @@
         </div>
     </div>
 </div>
+
