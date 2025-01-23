@@ -178,5 +178,94 @@ namespace CRUD_Training.ConnectionLayer
                 }
             }
         }
+
+        //Method for the Specific Order Details.
+        public List<OrderWithDetailsModel> GetOrdersWithDetails()
+        {
+            string query = @"
+        SELECT 
+            o.OrderNO,
+            c.FullName AS CustomerName,
+            p.ProductName AS ProductName,
+            o.OrderDate,
+            o.TotalAmount,
+            o.AddedBy,
+            o.AddedOn
+        FROM 
+            Orders o
+        JOIN 
+            Customers c ON o.CustomerID = c.CustomerID
+        JOIN 
+            Products p ON o.ProductID = p.ProductID";
+
+            var orders = new List<OrderWithDetailsModel>();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            orders.Add(new OrderWithDetailsModel
+                            {
+                                OrderNO = Convert.ToInt32(reader["OrderNO"]),
+                                CustomerName = reader["CustomerName"].ToString(),
+                                ProductName = reader["ProductName"].ToString(),
+                                OrderDate = Convert.ToDateTime(reader["OrderDate"]),
+                                TotalAmount = Convert.ToDecimal(reader["TotalAmount"]),
+                                AddedBy = reader["AddedBy"].ToString(),
+                                AddedOn = Convert.ToDateTime(reader["AddedOn"])
+                            });
+                        }
+                    }
+                }
+            }
+
+            return orders;
+        }
+
+        // to execute multiple queries dynamically within a transaction
+        public bool ExecuteTransaction(List<(string query, Dictionary<string, object> parameters)> commands)
+        {
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (SqlTransaction transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        foreach (var (query, parameters) in commands)
+                        {
+                            using (SqlCommand command = new SqlCommand(query, connection, transaction))
+                            {
+                                if (parameters != null)
+                                {
+                                    foreach (var param in parameters)
+                                    {
+                                        command.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
+                                    }
+                                }
+                                command.ExecuteNonQuery();
+                            }
+                        }
+
+                        // Commit the transaction
+                        transaction.Commit();
+                        return true;
+                    }
+                    catch
+                    {
+                        // Rollback if any query fails
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
+
+
     }
 }

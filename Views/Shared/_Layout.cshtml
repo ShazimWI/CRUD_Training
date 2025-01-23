@@ -30,16 +30,16 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link @(Context.Request.Path == "/Home/Index"? "active":"" ) " asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Customer" asp-action="Customer">Customer</a>
+                            <a class="nav-link @(Context.Request.Path == "/Customer/Customer"? "active":"" )" asp-area="" asp-controller="Customer" asp-action="Customer">Customer</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Products" asp-action="Index">Product</a>
+                            <a class="nav-link @(Context.Request.Path == "/Products/Index"? "active":"" )" asp-area="" asp-controller="Products" asp-action="Index">Product</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Order" asp-action="Order">Order</a>
+                            <a class="nav-link @(Context.Request.Path == "/Order/Order"? "active":"" )" asp-area="" asp-controller="Order" asp-action="Order">Order</a>
                         </li>
 
                     </ul>

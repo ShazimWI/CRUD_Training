@@ -27,12 +27,25 @@ namespace CRUD_Training.Controllers
                 return View();
             }
 
+
             //Verify Credentials
             var existingUser = _dal.GetData<UserModel>("Users").FirstOrDefault(u => u.UserName == user.UserName );
+
+            if (existingUser != null)
+            {
+                Console.WriteLine($"User found: {existingUser.UserName}, Active: {existingUser.IsActive}");
+            }
 
             if (existingUser == null || existingUser.Password != user.Password)
             {
                 ViewBag.ErrorMessage = "Invalid username or password";
+                return View();
+            } 
+
+            // Check if the user is inactive
+            if (!existingUser.IsActive)
+            {
+                ViewBag.ErrorMessage = "User is temporarily disabled (inactive)";
                 return View();
             }
 

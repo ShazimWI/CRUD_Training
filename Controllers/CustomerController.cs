@@ -105,7 +105,6 @@ namespace CRUD_Training.Controllers
 
             try
             {
-                // Fetch the customer's image path
                 var customer = _dal.GetData<CustomerModel>("Customers").FirstOrDefault(c => c.CustomerID == id);
 
                 if (customer == null)
